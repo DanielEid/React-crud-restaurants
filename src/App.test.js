@@ -9,6 +9,5 @@ it('renders without crashing', () => {
 });
 
 ReactDOM.render(
-  <CoolComponent />,
   document.getElementById('App')
 )

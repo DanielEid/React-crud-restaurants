@@ -1,25 +1,23 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import './FetchComponent.js';
+import './FetchComponent';
 
+//
+import FetchComponent from './FetchComponent';
+import MaterialTable from "material-table";
 
 function App() {
   return (
     <div className="App">
 
+    <p>Hello</p>
+
     <FetchComponent />
+
 
     </div>
     );
 }
 
-class FetchComponent extends React.Component{
-  
-
-  render(){
-    let data = this.props.data;
-    return <p>FetchComponent: {data} </p>
-  }
-}
 export default App;
 
