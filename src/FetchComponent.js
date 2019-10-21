@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import MaterialTable from "material-table";
 
+//Axios
+const axios = require('axios');
+const uriApi = ('http://localhost:8080/api/restaurants');
+
+//Function Fetch with Axios
+const getDatas = async function(){
+  let data = await axios.get(uriApi);
+}
+
+//Call Function Fetch Axios
+getDatas();
+
 
 class FetchComponent extends React.Component {
   constructor(props) {
@@ -15,7 +27,7 @@ class FetchComponent extends React.Component {
           field: 'address',
         },
       ],
-      data: [
+      data: [        
         { name: 'StarBuck NY', cuisine: 'Coffee', address: "13 wall street ,NY" },
         { name: 'Tour restaurant', cuisine: 'Gastronomique', address: "Paris" },
       ]
@@ -25,7 +37,7 @@ class FetchComponent extends React.Component {
   render() {
     return (
       <MaterialTable
-        title="Editable Preview"
+        title="Liste de restaurants"
         columns={this.state.columns}
         data={this.state.data}
         editable={{
