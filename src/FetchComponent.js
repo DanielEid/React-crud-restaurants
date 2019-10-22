@@ -1,9 +1,8 @@
 import React from 'react';
 import MaterialTable from "material-table";
 import axios from 'axios';
-import { func } from 'prop-types';
 
-//Axios
+//Axios CRUD
 const uriApi = 'http://localhost:8080/api/restaurants';
 
 
@@ -11,27 +10,17 @@ class FetchComponent extends React.Component {
   state = {
     columns: [
       { title: 'Nom', field: 'name' },
-      { title: 'Cuisine', field: 'cuisine', initialEditValue: 'initial edit value' },
-      {
-        title: 'id',field: '_id',
+      { title: 'Cuisine', field: 'cuisine'},
+      { title: 'id',field: '_id', editable : false, hidden :true
       },
     ],
-    data: [        
-      /*{ name: 'StarBuck NY', cuisine: 'Coffee', address: "13 wall street ,NY" },
-      { name: 'Tour restaurant', cuisine: 'Gastronomique', address: "Paris" },
-    */],
+    data: []
   }
 
   componentDidMount () {
-    //this.getRestaurants();
-    //this.postRestaurant('AAA','BBB');
-    //this.putRestaurant('5d9dd9540e36bccc0b016e46','Bonjoir','AmericaHAHAH');
-    //this.deleteRestaurant('5d9dd9540e36bccc0b016e46');
     this.getRestaurants();
-
   }
 
-  /*TABLEPAGINATION*/ 
 /*CRUD*/
 
   getRestaurants = async (page,pagesize) => {  
@@ -41,13 +30,13 @@ class FetchComponent extends React.Component {
 
   postRestaurant = async (name,cuisine) => {
     let response = await axios.post(uriApi,{
-      name : name,
+      nom : name,
       cuisine: cuisine
     })
   }
   putRestaurant = async (id,name,cuisine) =>{
     let response = await axios.put(uriApi +'/'+ id,{
-      name : name,
+      nom : name,
       cuisine: cuisine
     })
   }
@@ -58,10 +47,9 @@ class FetchComponent extends React.Component {
   render() {
     return (
       <MaterialTable
-        title="Liste de restaurants"
+        title="Liste de restaurants"        
         columns={this.state.columns}
         data={this.state.data}
-       /* onSearchChange=/*TOn get*/
         editable={{
           onRowAdd: newData =>
             new Promise((resolve, reject) => {
@@ -69,7 +57,7 @@ class FetchComponent extends React.Component {
                 {
                   const data = this.state.data;                  
                   data.push(newData);
-                  //Ajout d'un restaurant dans la BDD//
+                  //CRUD POST
                   this.postRestaurant(newData.name,newData.cuisine);
                   //
                   this.setState({ data }, () => resolve());
@@ -84,6 +72,9 @@ class FetchComponent extends React.Component {
                   const data = this.state.data;
                   const index = data.indexOf(oldData);
                   data[index] = newData;
+                  //CRUD PUT
+                    console.log(this.putRestaurant(newData._id,newData.name,newData.cuisine));
+                  //
                   this.setState({ data }, () => resolve());
                 }
                 resolve()
@@ -95,6 +86,11 @@ class FetchComponent extends React.Component {
                 {
                   let data = this.state.data;
                   const index = data.indexOf(oldData);
+                  let dataToDelete = data[index];
+                  //CRUD DELETE
+                  console.log(dataToDelete._id);
+                  this.deleteRestaurant(dataToDelete._id);
+                  //
                   data.splice(index, 1);
                   this.setState({ data }, () => resolve());
                 }
