@@ -30,10 +30,12 @@ class FetchComponent extends React.Component {
     this.getRestaurants();
 
   }
+
+  /*TABLEPAGINATION*/ 
 /*CRUD*/
 
-  getRestaurants = async () => {
-    let response = await axios.get(uriApi);
+  getRestaurants = async (page,pagesize) => {  
+    let response = await axios.get(uriApi + '?page=' + page + '&pagesize=' + pagesize);
     this.setState({ data : response.data.data })
   };
 
@@ -59,13 +61,17 @@ class FetchComponent extends React.Component {
         title="Liste de restaurants"
         columns={this.state.columns}
         data={this.state.data}
+       /* onSearchChange=/*TOn get*/
         editable={{
           onRowAdd: newData =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
                 {
-                  const data = this.state.data;
+                  const data = this.state.data;                  
                   data.push(newData);
+                  //Ajout d'un restaurant dans la BDD//
+                  this.postRestaurant(newData.name,newData.cuisine);
+                  //
                   this.setState({ data }, () => resolve());
                 }
                 resolve()
