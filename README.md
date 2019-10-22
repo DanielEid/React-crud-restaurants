@@ -15,7 +15,7 @@ Ce repository le projet réalisé dans le cadre du rendu sur react.
 - Lancez mongosb avec la base importée.
 
 #### back end
-- Utiliser l'archive dans le projet (corrigeant l'erreur cors origin) ==> TPRoutageExpress
+- Si erreur CROS origin remplacez votre `serverCrudWithMongo.js` par `./others/serverCrudWithMongo2.js`
 
 #### front-end
 
