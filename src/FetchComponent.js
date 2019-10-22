@@ -1,40 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MaterialTable from "material-table";
+import axios from 'axios';
 
 //Axios
-const axios = require('axios');
-const uriApi = ('http://localhost:8080/api/restaurants');
-
-//Function Fetch with Axios
-const getDatas = async function(){
-  let data = await axios.get(uriApi);
-}
-
-//Call Function Fetch Axios
-getDatas();
+const uriApi = 'http://localhost:8080/api/restaurants';
 
 
 class FetchComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      columns: [
-        { title: 'Nom', field: 'name' },
-        { title: 'Cuisine', field: 'cuisine', initialEditValue: 'initial edit value' },
-        { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-        {
-          title: 'Adresse',
-          field: 'address',
-        },
-      ],
-      data: [        
-        { name: 'StarBuck NY', cuisine: 'Coffee', address: "13 wall street ,NY" },
-        { name: 'Tour restaurant', cuisine: 'Gastronomique', address: "Paris" },
-      ]
-    }
+  state = {
+    columns: [
+      { title: 'Nom', field: 'name' },
+      { title: 'Cuisine', field: 'cuisine', initialEditValue: 'initial edit value' },
+      {
+        title: 'id',field: 'id',
+      },
+    ],
+    data: [        
+      /*{ name: 'StarBuck NY', cuisine: 'Coffee', address: "13 wall street ,NY" },
+      { name: 'Tour restaurant', cuisine: 'Gastronomique', address: "Paris" },*/
+    ],
   }
 
+  componentDidMount () {
+    this.getRestaurants();
+  }
+
+  getRestaurants = async () => {
+    let response = await axios.get(uriApi);
+    console.log(response);
+    this.setState({ data : response.data })
+  };
+  
   render() {
+    console.log('DATA !!! ', this.state.data);
+
+
     return (
       <MaterialTable
         title="Liste de restaurants"
