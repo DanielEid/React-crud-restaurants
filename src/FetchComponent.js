@@ -1,6 +1,7 @@
 import React from 'react';
 import MaterialTable from "material-table";
 import axios from 'axios';
+import { func } from 'prop-types';
 
 //Axios
 const uriApi = 'http://localhost:8080/api/restaurants';
@@ -12,29 +13,47 @@ class FetchComponent extends React.Component {
       { title: 'Nom', field: 'name' },
       { title: 'Cuisine', field: 'cuisine', initialEditValue: 'initial edit value' },
       {
-        title: 'id',field: 'id',
+        title: 'id',field: '_id',
       },
     ],
     data: [        
       /*{ name: 'StarBuck NY', cuisine: 'Coffee', address: "13 wall street ,NY" },
-      { name: 'Tour restaurant', cuisine: 'Gastronomique', address: "Paris" },*/
-    ],
+      { name: 'Tour restaurant', cuisine: 'Gastronomique', address: "Paris" },
+    */],
   }
 
   componentDidMount () {
+    //this.getRestaurants();
+    //this.postRestaurant('AAA','BBB');
+    //this.putRestaurant('5d9dd9540e36bccc0b016e46','Bonjoir','AmericaHAHAH');
+    //this.deleteRestaurant('5d9dd9540e36bccc0b016e46');
     this.getRestaurants();
+
   }
+/*CRUD*/
 
   getRestaurants = async () => {
     let response = await axios.get(uriApi);
-    console.log(response);
-    this.setState({ data : response.data })
+    this.setState({ data : response.data.data })
   };
+
+  postRestaurant = async (name,cuisine) => {
+    let response = await axios.post(uriApi,{
+      name : name,
+      cuisine: cuisine
+    })
+  }
+  putRestaurant = async (id,name,cuisine) =>{
+    let response = await axios.put(uriApi +'/'+ id,{
+      name : name,
+      cuisine: cuisine
+    })
+  }
+  deleteRestaurant = async (id) =>{
+    let response = await axios.delete(uriApi +'/'+ id)
+  }
   
   render() {
-    console.log('DATA !!! ', this.state.data);
-
-
     return (
       <MaterialTable
         title="Liste de restaurants"
