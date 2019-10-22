@@ -2,14 +2,14 @@
 
 ## Infos 
 
-Ce repository le projet réalisé dans le cadre du rendu sur react.
+Ce repository contient le projet réalisé dans le cadre du rendu sur react.
 
 ### Branches
  - master : branche principale
- - dev: branche de dévelloepment avec les différentes étapes (commits),
+ - dev: branche de dévellopement avec les différentes étapes (commits),
         Utilisation de https://material-table.com
         
-### Instalations 
+### Instalations
 
 #### mongodb
 - Lancez mongosb avec la base importée.
